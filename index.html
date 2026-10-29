@@ -29,13 +29,11 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 86px; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    body { margin: 0; background: var(--navy); color: var(--ink); font-family: var(--sans); }
     a { color: inherit; }
     button, input { font: inherit; }
     button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--blue-bright); outline-offset: 4px; }
     ::selection { background: var(--gold); color: var(--navy); }
-    .skip-link { position: fixed; z-index: 20; left: 1rem; top: 1rem; transform: translateY(-160%); padding: .8rem 1rem; background: var(--gold); color: var(--navy); font-weight: 800; }
-    .skip-link:focus { transform: translateY(0); }
     .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
     .eyebrow { display: flex; gap: .65rem; align-items: center; font: 700 .69rem/1.3 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
     .eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; }
@@ -44,73 +42,7 @@
     .section-head h2 { max-width: 720px; margin: 16px 0 0; font-size: clamp(2.5rem, 5vw, 5rem); line-height: .96; letter-spacing: -.065em; font-weight: 760; }
     .section-head p { max-width: 360px; margin: 0 0 5px; color: var(--muted); line-height: 1.65; }
 
-    .topbar { position: sticky; top: 0; z-index: 10; color: #fff; background: rgba(8, 17, 28, .94); border-bottom: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(14px); }
-    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
-    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--gold); color: var(--gold); font: 800 .68rem/1 var(--mono); letter-spacing: -.08em; }
-    .brand-copy { display: grid; gap: 2px; font-size: .8rem; font-weight: 740; letter-spacing: .01em; }
-    .brand-copy small { color: #aab6c3; font: 600 .58rem/1.3 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
-    .nav-links { display: flex; align-items: center; gap: clamp(16px, 3vw, 38px); }
-    .nav-links a { color: #d5dce4; font: 650 .71rem/1 var(--mono); letter-spacing: .04em; text-decoration: none; text-transform: uppercase; transition: color .2s; }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-cta { padding: 13px 16px; border: 1px solid rgba(255,255,255,.35); color: #fff !important; }
-    .nav-cta:hover { border-color: var(--gold); color: var(--gold) !important; }
-
-    .hero { position: relative; overflow: hidden; min-height: 700px; color: #f5f7fa; background: var(--navy); }
-    .hero::before { position: absolute; inset: 0; content: ""; opacity: .2; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(90deg, black, transparent 85%); }
-    .hero::after { position: absolute; width: 650px; height: 650px; right: -5%; top: 8%; content: ""; border-radius: 50%; background: radial-gradient(circle, rgba(23,71,166,.35), rgba(23,71,166,0) 68%); pointer-events: none; }
-    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .95fr) minmax(420px, 1.05fr); align-items: center; gap: 28px; min-height: 700px; padding-top: 58px; padding-bottom: 78px; }
-    .hero-copy { position: relative; z-index: 2; padding: 24px 0 45px; }
-    .hero .eyebrow { color: var(--gold); }
-    .hero h1 { max-width: 690px; margin: 25px 0 22px; font-size: clamp(4.1rem, 8.3vw, 8rem); line-height: .83; letter-spacing: -.09em; font-weight: 790; }
-    .hero h1 span { display: block; color: var(--gold); }
-    .hero-lede { max-width: 480px; margin: 0; color: #c3cbd4; font-size: clamp(1.02rem, 1.5vw, 1.2rem); line-height: 1.65; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 0 18px; border: 1px solid transparent; text-decoration: none; font-size: .78rem; font-weight: 800; letter-spacing: .035em; transition: transform .2s, background .2s, border-color .2s; }
-    .button:hover { transform: translateY(-2px); }
-    .button-gold { background: var(--gold); color: var(--navy); }
-    .button-gold:hover { background: #ffe07e; }
-    .button-outline { border-color: rgba(255,255,255,.36); color: #fff; }
-    .button-outline:hover { border-color: var(--gold); color: var(--gold); }
-    .hero-note { display: flex; align-items: center; gap: 9px; margin-top: 34px; color: #8f9baa; font: 600 .65rem/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
-    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #67d69b; box-shadow: 0 0 0 4px rgba(103,214,155,.12); }
-    .hero-art { position: relative; min-width: 0; }
-    .car-frame { position: relative; min-height: 470px; border: 1px solid rgba(255,255,255,.16); background: linear-gradient(145deg, rgba(31,54,78,.55), rgba(6,14,23,.2)); }
-    .car-frame::before { position: absolute; inset: 14px; content: ""; border: 1px solid rgba(255,255,255,.07); pointer-events: none; }
-    .car-svg { position: absolute; inset: 7% 1% 14%; width: 98%; height: 78%; overflow: visible; }
-    .art-label { position: absolute; padding: 9px 11px; background: rgba(7,16,27,.84); border: 1px solid rgba(255,255,255,.16); color: #d5deea; font: 600 .59rem/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
-    .art-label b { display: block; margin-top: 3px; color: var(--gold); font-size: .73rem; }
-    .label-one { top: 13%; left: 7%; }
-    .label-two { right: 5%; top: 40%; }
-    .label-three { bottom: 17%; left: 19%; }
-    .art-index { position: absolute; bottom: 27px; left: 29px; color: #9aa6b3; font: 600 .62rem/1.4 var(--mono); letter-spacing: .08em; }
-    .art-index strong { color: #f1f4f7; font-weight: 600; }
-    .hero-caption { position: absolute; right: 29px; bottom: 27px; color: var(--gold); font: 700 .61rem/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-    .spec-strip { position: relative; z-index: 2; color: var(--ink); background: var(--gold); }
-    .spec-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .spec { display: flex; align-items: baseline; gap: 12px; min-height: 76px; padding: 19px 22px; border-left: 1px solid rgba(16,25,35,.16); }
-    .spec:last-child { border-right: 1px solid rgba(16,25,35,.16); }
-    .spec strong { font: 800 .7rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .spec span { color: rgba(16,25,35,.68); font: 650 .65rem/1.35 var(--mono); text-transform: uppercase; }
-
-    .systems { background: var(--paper); }
-    .systems-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .system-card { position: relative; display: flex; flex-direction: column; min-height: 275px; padding: 29px; border: 1px solid var(--line); background: var(--white); }
-    .system-card:nth-child(2) { background: #e5e9f0; }
-    .system-card:nth-child(3) { color: #f4f6f9; background: var(--navy-2); }
-    .system-card:nth-child(4) { background: #e5c84a; }
-    .system-top { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
-    .system-number { color: var(--muted); font: 700 .65rem/1.4 var(--mono); letter-spacing: .1em; }
-    .system-icon { display: grid; place-items: center; width: 43px; height: 43px; border: 1px solid currentColor; font: 700 .7rem/1 var(--mono); }
-    .system-card h3 { margin: auto 0 10px; font-size: 1.58rem; letter-spacing: -.045em; }
-    .system-card p { max-width: 410px; margin: 0; color: var(--muted); line-height: 1.6; font-size: .9rem; }
-    .system-card:nth-child(3) p, .system-card:nth-child(3) .system-number { color: #bdc7d2; }
-    .system-card:nth-child(4) p, .system-card:nth-child(4) .system-number { color: rgba(16,25,35,.72); }
-    .system-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
-    .system-tags span { padding: 6px 8px; border: 1px solid rgba(16,25,35,.18); font: 650 .58rem/1 var(--mono); text-transform: uppercase; }
-    .system-card:nth-child(3) .system-tags span { border-color: rgba(255,255,255,.24); }
-
-    .repositories { position: relative; color: #f2f4f8; background: var(--navy); }
+    .repositories { min-height: 100vh; position: relative; color: #f2f4f8; background: var(--navy); }
     .repositories::before { position: absolute; inset: 0; content: ""; opacity: .13; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(180deg, transparent, black 15%, black 85%, transparent); }
     .repositories .wrap { position: relative; z-index: 1; }
     .repositories .section-head p { color: #aab5c1; }
@@ -144,77 +76,18 @@
     .load-more:hover { border-color: var(--gold); color: var(--gold); }
     .load-more[hidden] { display: none; }
 
-    .workflow { background: #e5e9f0; }
-    .workflow-layout { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); gap: 8vw; align-items: start; }
-    .workflow-intro h2 { margin: 18px 0; font-size: clamp(2.6rem, 5vw, 5rem); line-height: .93; letter-spacing: -.07em; }
-    .workflow-intro p { max-width: 350px; color: var(--muted); line-height: 1.65; }
-    .workflow-list { border-top: 1px solid rgba(16,25,35,.24); }
-    .workflow-row { display: grid; grid-template-columns: 56px 1fr; gap: 18px; padding: 25px 0; border-bottom: 1px solid rgba(16,25,35,.24); }
-    .workflow-row .step { color: var(--blue); font: 700 .69rem/1.5 var(--mono); }
-    .workflow-row h3 { margin: 0 0 7px; font-size: 1.08rem; letter-spacing: -.025em; }
-    .workflow-row p { max-width: 540px; margin: 0; color: #606c77; font-size: .87rem; line-height: 1.6; }
-
-    .join { position: relative; overflow: hidden; color: #fff; background: var(--blue); }
-    .join::after { position: absolute; width: 490px; height: 490px; top: -180px; right: -90px; content: ""; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; box-shadow: 0 0 0 54px rgba(255,255,255,.035), 0 0 0 108px rgba(255,255,255,.025), 0 0 0 162px rgba(255,255,255,.018); }
-    .join-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 36px; }
-    .join .eyebrow { color: var(--gold); }
-    .join h2 { max-width: 750px; margin: 19px 0; font-size: clamp(3.1rem, 7vw, 7rem); line-height: .88; letter-spacing: -.08em; }
-    .join p { max-width: 470px; margin: 0; color: #d8e1f4; line-height: 1.65; }
-    .join-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .join .button-outline { border-color: rgba(255,255,255,.55); }
-    .join .button-outline:hover { background: rgba(255,255,255,.1); color: #fff; }
-    .join-stamp { display: grid; place-items: center; flex: 0 0 158px; width: 158px; height: 158px; margin-bottom: 5px; border: 1px solid rgba(255,255,255,.48); border-radius: 50%; color: var(--gold); font: 700 .66rem/1.7 var(--mono); letter-spacing: .09em; text-align: center; text-transform: uppercase; transform: rotate(-12deg); }
-    .footer { color: #a8b2bd; background: var(--navy); }
-    .footer-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--line-light); }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
-    .footer-links a { color: #d2d9e1; font: 600 .63rem/1.3 var(--mono); letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-note { display: flex; justify-content: space-between; gap: 20px; padding: 17px 0 24px; font: 500 .58rem/1.5 var(--mono); }
-    .footer-note p { margin: 0; }
-    .footer-note a { color: #d0d8e0; text-decoration: none; }
-    .footer-note a:hover { color: var(--gold); }
     .noscript { margin: 15px 0; padding: 12px; border: 1px solid rgba(255,255,255,.3); color: #fff; font-size: .85rem; }
 
     @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; padding-top: 60px; }
-      .hero-copy { padding-bottom: 0; }
-      .hero h1 { max-width: 800px; }
-      .hero-art { width: min(100%, 700px); margin: 10px auto 0; }
-      .car-frame { min-height: 430px; }
       .section { padding: 88px 0; }
       .repo-grid { grid-template-columns: repeat(2, 1fr); }
-      .workflow-layout { gap: 42px; }
-      .join-stamp { flex-basis: 130px; width: 130px; height: 130px; }
     }
     @media (max-width: 640px) {
       .wrap { width: min(var(--max), calc(100% - 32px)); }
-      .nav { min-height: 66px; }
-      .brand-copy { font-size: .74rem; }
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: .58rem; }
-      .nav-links a:nth-child(1), .nav-links a:nth-child(2) { display: none; }
-      .nav-cta { padding: 11px 10px; }
-      .hero, .hero-inner { min-height: auto; }
-      .hero-inner { gap: 35px; padding-top: 64px; padding-bottom: 48px; }
-      .hero h1 { font-size: clamp(3.6rem, 16vw, 6rem); }
-      .hero-lede { font-size: 1rem; }
-      .car-frame { min-height: 300px; }
-      .label-one { top: 8%; left: 5%; }
-      .label-two { top: 35%; right: 3%; }
-      .label-three { bottom: 18%; left: 11%; }
-      .art-index { left: 20px; bottom: 18px; }
-      .hero-caption { right: 20px; bottom: 18px; }
-      .spec-inner { grid-template-columns: 1fr 1fr; }
-      .spec { min-height: 66px; padding: 14px 11px; border-bottom: 1px solid rgba(16,25,35,.16); }
-      .spec:nth-child(2) { border-right: 1px solid rgba(16,25,35,.16); }
-      .spec:nth-child(3) { border-bottom: 0; }
-      .spec:last-child { border-bottom: 0; }
       .section { padding: 72px 0; }
       .section-head { display: block; margin-bottom: 30px; }
       .section-head p { margin-top: 18px; }
       .section-head h2 { font-size: clamp(2.75rem, 12vw, 4.5rem); }
-      .systems-grid { grid-template-columns: 1fr; }
-      .system-card { min-height: 235px; padding: 23px; }
       .repo-controls { align-items: stretch; flex-direction: column; }
       .repo-tools { flex-wrap: wrap; }
       .filter-select { flex: 1; min-width: 140px; }
@@ -222,13 +95,6 @@
       .repo-grid { grid-template-columns: 1fr; }
       .repo-card { min-height: 205px; }
       .repo-bottom { align-items: start; flex-direction: column; }
-      .workflow-layout { grid-template-columns: 1fr; gap: 30px; }
-      .workflow-intro h2 { font-size: clamp(3rem, 13vw, 4.5rem); }
-      .join-inner { display: block; }
-      .join h2 { font-size: clamp(3.25rem, 14vw, 5.5rem); }
-      .join-stamp { width: 104px; height: 104px; margin: 42px 0 0 9px; font-size: .55rem; }
-      .footer-main, .footer-note { align-items: start; flex-direction: column; }
-      .footer-links { gap: 13px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
@@ -236,144 +102,7 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Highlander Racing Computer Science home">
-        <span class="brand-mark" aria-hidden="true">HR/CS</span>
-        <span class="brand-copy">Highlander Racing<small>Computer Science · UCR</small></span>
-      </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#systems">Systems</a>
-        <a href="#repositories">Projects</a>
-        <a href="#workflow">How we build</a>
-        <a class="nav-cta" href="#join">Get involved <span aria-hidden="true">↗</span></a>
-      </nav>
-    </div>
-  </header>
-
   <main id="main">
-    <section class="hero" id="top">
-      <div class="wrap hero-inner">
-        <div class="hero-copy">
-          <div class="eyebrow">Computer Science · Highlander Racing</div>
-          <h1>Software for <span>the car.</span></h1>
-          <p class="hero-lede">We build the embedded systems that help an electric race car sense, decide, and respond. Made by students at UC Riverside. Tested against the real world.</p>
-          <div class="hero-actions">
-            <a class="button button-gold" href="#repositories">Explore the code <span aria-hidden="true">↓</span></a>
-            <a class="button button-outline" href="https://www.highlanderracing.org/" target="_blank" rel="noopener noreferrer">Meet Highlander Racing <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="hero-note"><span class="live-dot" aria-hidden="true"></span> Riverside, California · UCR Formula SAE Electric</div>
-        </div>
-        <div class="hero-art" aria-label="Illustration of an electric formula race car with its software systems highlighted" role="img">
-          <div class="car-frame">
-            <svg class="car-svg" viewBox="0 0 760 410" aria-hidden="true" focusable="false">
-              <defs>
-                <linearGradient id="bodyPaint" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stop-color="#ffd34e"/>
-                  <stop offset=".46" stop-color="#f3b928"/>
-                  <stop offset="1" stop-color="#a66c12"/>
-                </linearGradient>
-                <linearGradient id="glass" x1="0" x2="1">
-                  <stop stop-color="#7fa9db" stop-opacity=".85"/>
-                  <stop offset="1" stop-color="#152c4a" stop-opacity=".92"/>
-                </linearGradient>
-                <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-                  <feGaussianBlur stdDeviation="7" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-              <ellipse cx="390" cy="330" rx="275" ry="26" fill="#02070d" opacity=".7"/>
-              <g stroke="#8aa7c5" stroke-width="5" fill="none" opacity=".86">
-                <path d="M125 252 L224 234 L302 211 L406 202 L529 218 L617 240"/>
-                <path d="M178 292 L255 246 L300 208 M565 292 L522 247 L480 206"/>
-                <path d="M121 250 L164 297 M618 240 L576 298"/>
-                <path d="M133 251 L109 248 M617 240 L645 235"/>
-              </g>
-              <g fill="#08111c" stroke="#dbe5ef" stroke-width="5">
-                <circle cx="162" cy="291" r="43"/><circle cx="162" cy="291" r="22" fill="#27384a"/>
-                <circle cx="575" cy="291" r="43"/><circle cx="575" cy="291" r="22" fill="#27384a"/>
-                <circle cx="254" cy="294" r="35"/><circle cx="254" cy="294" r="17" fill="#27384a"/>
-                <circle cx="494" cy="294" r="35"/><circle cx="494" cy="294" r="17" fill="#27384a"/>
-              </g>
-              <path d="M122 251 L207 228 L282 210 L350 192 L449 194 L525 212 L607 233 L586 251 L520 248 L474 229 L289 231 L240 250 L162 270 L128 265 Z" fill="url(#bodyPaint)" stroke="#ffe17d" stroke-width="3"/>
-              <path d="M278 212 L323 164 Q344 148 390 148 L428 190 L450 197 L450 215 L332 218 Z" fill="#18283a" stroke="#ffd34e" stroke-width="3"/>
-              <path d="M326 163 Q348 153 382 154 L413 188 L335 187 Z" fill="url(#glass)" stroke="#9dc2ec" stroke-width="2"/>
-              <path d="M203 228 L223 186 L284 183 L298 211 M449 198 L492 172 L536 185 L548 218" fill="none" stroke="#f4f6f8" stroke-width="5"/>
-              <path d="M115 245 L118 221 L231 218 L225 232 M566 222 L636 220 L650 232 L645 241" fill="none" stroke="#d8e3ef" stroke-width="7"/>
-              <path d="M295 218 L334 203 L445 202 L494 222 L462 237 L301 239 Z" fill="#1747a6" stroke="#75a1ff" stroke-width="3"/>
-              <path d="M354 208 L381 198 L413 202 L426 220 L389 226 L356 222 Z" fill="#0b1826" stroke="#ffd34e" stroke-width="2"/>
-              <rect x="366" y="206" width="41" height="14" rx="2" fill="#ffd34e" opacity=".95"/>
-              <path d="M324 199 L345 193 M445 203 L467 212" stroke="#8ab1ff" stroke-width="2" stroke-dasharray="4 6"/>
-              <g fill="#ffd34e" filter="url(#glow)">
-                <circle cx="386" cy="213" r="5"/><circle cx="328" cy="222" r="3"/><circle cx="469" cy="225" r="3"/>
-              </g>
-              <g stroke="#4f82ff" stroke-width="1.5" stroke-dasharray="5 5" fill="none">
-                <path d="M384 209 Q339 133 254 105"/><path d="M399 211 Q473 148 570 126"/><path d="M381 219 Q328 280 296 337"/>
-              </g>
-              <g fill="#ffd34e">
-                <circle cx="254" cy="105" r="4"/><circle cx="570" cy="126" r="4"/><circle cx="296" cy="337" r="4"/>
-              </g>
-              <text x="112" y="104" fill="#bdcbe0" font-family="monospace" font-size="10" letter-spacing="2">CONTROL</text>
-              <text x="576" y="121" fill="#bdcbe0" font-family="monospace" font-size="10" letter-spacing="2">TELEMETRY</text>
-              <text x="257" y="361" fill="#bdcbe0" font-family="monospace" font-size="10" letter-spacing="2">VEHICLE NETWORK</text>
-            </svg>
-            <div class="art-label label-one">01 / Control<b>VCU · Embedded</b></div>
-            <div class="art-label label-two">02 / Observe<b>DAQ · Telemetry</b></div>
-            <div class="art-label label-three">03 / Communicate<b>CAN · Vehicle systems</b></div>
-            <div class="art-index">UCR / FSAE <strong>— ELECTRIC</strong></div>
-            <div class="hero-caption">Connected by code ↗</div>
-          </div>
-        </div>
-      </div>
-      <div class="spec-strip">
-        <div class="wrap spec-inner">
-          <div class="spec"><strong>Embedded</strong><span>C / C++</span></div>
-          <div class="spec"><strong>Vehicle data</strong><span>DAQ · CAN</span></div>
-          <div class="spec"><strong>Electronics</strong><span>VCU · BMS</span></div>
-          <div class="spec"><strong>Built at</strong><span>UC Riverside</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section systems" id="systems">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">A connected system</div>
-            <h2>Code that meets the car.</h2>
-          </div>
-          <p>Computer Science works across the vehicle: controlling hardware, collecting useful data, and helping teammates diagnose what is happening on track and in the workshop.</p>
-        </div>
-        <div class="systems-grid">
-          <article class="system-card">
-            <div class="system-top"><span class="system-number">SYSTEM 01</span><span class="system-icon" aria-hidden="true">VCU</span></div>
-            <h3>Control</h3>
-            <p>Embedded software reads vehicle inputs, checks conditions, and communicates with the systems that control the car.</p>
-            <div class="system-tags"><span>Vehicle control</span><span>Firmware</span></div>
-          </article>
-          <article class="system-card">
-            <div class="system-top"><span class="system-number">SYSTEM 02</span><span class="system-icon" aria-hidden="true">DAQ</span></div>
-            <h3>Measure</h3>
-            <p>Data acquisition and logging turn signals from the car into information engineers can inspect, compare, and use.</p>
-            <div class="system-tags"><span>Data logging</span><span>Diagnostics</span></div>
-          </article>
-          <article class="system-card">
-            <div class="system-top"><span class="system-number">SYSTEM 03</span><span class="system-icon" aria-hidden="true">BMS</span></div>
-            <h3>Monitor</h3>
-            <p>Battery and vehicle electronics need dependable communication and monitoring throughout testing and competition.</p>
-            <div class="system-tags"><span>Battery systems</span><span>CAN bus</span></div>
-          </article>
-          <article class="system-card">
-            <div class="system-top"><span class="system-number">SYSTEM 04</span><span class="system-icon" aria-hidden="true">↔</span></div>
-            <h3>Integrate</h3>
-            <p>Software connects to custom hardware and collaborates with electrical, battery, drivetrain, and vehicle teams.</p>
-            <div class="system-tags"><span>Hardware in the loop</span><span>Team engineering</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section repositories" id="repositories">
       <div class="wrap">
         <div class="section-head">
@@ -405,58 +134,7 @@
         <noscript><p class="noscript">JavaScript is needed to load live repository details. Visit <a href="https://github.com/UCR-FSAE">the UCR-FSAE GitHub organization</a> to browse its public projects.</p></noscript>
       </div>
     </section>
-
-    <section class="section workflow" id="workflow">
-      <div class="wrap workflow-layout">
-        <div class="workflow-intro">
-          <div class="eyebrow">How we build</div>
-          <h2>From a signal to a system.</h2>
-          <p>Software for a race car has to work with real sensors, wiring, control units, and the people integrating them.</p>
-        </div>
-        <div class="workflow-list">
-          <article class="workflow-row"><div class="step">01 /</div><div><h3>Understand the hardware</h3><p>Start with the vehicle system, its electronics, the signals it exchanges, and the conditions it needs to handle.</p></div></article>
-          <article class="workflow-row"><div class="step">02 /</div><div><h3>Build and review</h3><p>Develop firmware and tools in shared repositories so teammates can review changes, follow the work, and build on it.</p></div></article>
-          <article class="workflow-row"><div class="step">03 /</div><div><h3>Test with the system</h3><p>Bring software together with vehicle hardware, inspect the data, and refine the integration as the car evolves.</p></div></article>
-          <article class="workflow-row"><div class="step">04 /</div><div><h3>Share what we learn</h3><p>Public repositories make project history and engineering work easier for future teammates, collaborators, and supporters to explore.</p></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section join" id="join">
-      <div class="wrap join-inner">
-        <div>
-          <div class="eyebrow">Build with us</div>
-          <h2>Bring your curiosity.<br>Ship something real.</h2>
-          <p>Highlander Racing is a student engineering team at UC Riverside. Explore the code, learn about the team, or get in touch about joining and supporting the program.</p>
-          <div class="join-actions">
-            <a class="button button-gold" href="mailto:ucrhighlanderracing@gmail.com?subject=Highlander%20Racing%20Computer%20Science">Contact the team <span aria-hidden="true">↗</span></a>
-            <a class="button button-outline" href="https://www.highlanderracing.org/" target="_blank" rel="noopener noreferrer">Team website <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-        <div class="join-stamp" aria-hidden="true">One team<br>One car<br>UCR / FSAE</div>
-      </div>
-    </section>
   </main>
-
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-main">
-        <a class="brand" href="#top" aria-label="Back to top">
-          <span class="brand-mark" aria-hidden="true">HR/CS</span>
-          <span class="brand-copy">Highlander Racing<small>Computer Science · UCR</small></span>
-        </a>
-        <div class="footer-links">
-          <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <a href="https://www.highlanderracing.org/" target="_blank" rel="noopener noreferrer">Highlander Racing ↗</a>
-          <a href="mailto:ucrhighlanderracing@gmail.com">Email ↗</a>
-        </div>
-      </div>
-      <div class="footer-note">
-        <p>UC Riverside · Formula SAE Electric · Computer Science</p>
-        <p>Public repository details are supplied by <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-      </div>
-    </div>
-  </footer>
 
   <style>
     .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
