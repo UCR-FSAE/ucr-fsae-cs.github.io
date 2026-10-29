@@ -48,8 +48,7 @@
     .repositories .section-head p { color: #aab5c1; }
     .repo-controls { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
     .repo-tools { display: flex; align-items: center; gap: 9px; min-width: 0; }
-    .filter-select, .repo-search { min-height: 44px; border: 1px solid rgba(255,255,255,.22); border-radius: 0; background: #0c1927; color: #eef2f6; }
-    .filter-select { padding: 0 34px 0 13px; font-size: .75rem; }
+    .repo-search { min-height: 44px; border: 1px solid rgba(255,255,255,.22); border-radius: 0; background: #0c1927; color: #eef2f6; }
     .repo-search { width: min(270px, 31vw); padding: 0 13px; }
     .repo-search::placeholder { color: #8d9aa8; }
     .repo-state { display: flex; align-items: center; gap: 10px; color: #aab5c1; font: 600 .63rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
@@ -90,7 +89,6 @@
       .section-head h2 { font-size: clamp(2.75rem, 12vw, 4.5rem); }
       .repo-controls { align-items: stretch; flex-direction: column; }
       .repo-tools { flex-wrap: wrap; }
-      .filter-select { flex: 1; min-width: 140px; }
       .repo-search { flex: 1 1 100%; width: 100%; }
       .repo-grid { grid-template-columns: 1fr; }
       .repo-card { min-height: 205px; }
@@ -114,10 +112,6 @@
         </div>
         <div class="repo-controls">
           <div class="repo-tools">
-            <label class="visually-hidden" for="language-filter">Filter projects by language</label>
-            <select class="filter-select" id="language-filter" aria-label="Filter projects by language">
-              <option value="all">All languages</option>
-            </select>
             <label class="visually-hidden" for="repo-search">Search public repositories</label>
             <input class="repo-search" id="repo-search" type="search" placeholder="Search projects…" autocomplete="off">
           </div>
@@ -148,12 +142,10 @@
       var CACHE_TTL = 5 * 60 * 1000;
       var PAGE_SIZE = 9;
       var repositories = [];
-      var activeLanguage = "all";
       var visibleCount = PAGE_SIZE;
       var grid = document.getElementById("repo-grid");
       var status = document.getElementById("repo-status");
       var count = document.getElementById("repo-count");
-      var languageFilter = document.getElementById("language-filter");
       var searchInput = document.getElementById("repo-search");
       var loadMore = document.getElementById("load-more");
 
@@ -206,9 +198,8 @@
       function getFilteredRepos() {
         var query = searchInput.value.trim().toLowerCase();
         return repositories.filter(function (repo) {
-          var matchesLanguage = activeLanguage === "all" || (repo.language || "Other") === activeLanguage;
           var haystack = [repo.name, repo.description, repo.language].join(" ").toLowerCase();
-          return matchesLanguage && (!query || haystack.indexOf(query) !== -1);
+          return !query || haystack.indexOf(query) !== -1;
         });
       }
 
@@ -217,7 +208,7 @@
         var shown = filtered.slice(0, visibleCount);
         grid.setAttribute("aria-busy", "false");
         if (!filtered.length) {
-          grid.innerHTML = '<div class="repo-empty"><strong>No matching projects.</strong>Try another search or choose a different language.</div>';
+          grid.innerHTML = '<div class="repo-empty"><strong>No matching projects.</strong>Try another search.</div>';
         } else {
           grid.innerHTML = shown.map(makeCard).join("");
         }
@@ -228,13 +219,6 @@
         loadMore.disabled = shown.length >= filtered.length;
       }
 
-      function setupLanguages() {
-        var languages = Array.from(new Set(repositories.map(function (repo) { return repo.language || "Other"; }))).sort();
-        languageFilter.innerHTML = '<option value="all">All languages</option>' + languages.map(function (language) {
-          return '<option value="' + escapeHtml(language) + '">' + escapeHtml(language) + '</option>';
-        }).join("");
-      }
-
       function renderFallback() {
         var fallbacks = [
           { name: "vcu27E", language: "C++", description: "UCR Highlander Racing's VCU for 27E.", html_url: "https://github.com/UCR-FSAE/vcu27E", updated_at: "", fork: false },
@@ -243,7 +227,6 @@
           { name: "vcu26E", language: "C", description: "Vehicle Control Unit for the 2026 electric car.", html_url: "https://github.com/UCR-FSAE/vcu26E", updated_at: "", fork: false }
         ];
         repositories = fallbacks;
-        setupLanguages();
         render();
         count.textContent = "Live project directory unavailable · showing selected public repositories";
         setStatus("GitHub connection unavailable", false);
@@ -258,7 +241,6 @@
         }
         if (cached && cached.savedAt && Date.now() - cached.savedAt < CACHE_TTL && Array.isArray(cached.items)) {
           repositories = cached.items;
-          setupLanguages();
           render();
           setStatus("Live from GitHub · cached for this session", true);
           return;
@@ -283,14 +265,12 @@
           } catch (error) {
             // The repository list still works when browser storage is unavailable.
           }
-          setupLanguages();
           render();
           setStatus("Live from GitHub · public projects", true);
         }).catch(function () {
           window.clearTimeout(timeoutId);
           if (cached && Array.isArray(cached.items)) {
             repositories = cached.items;
-            setupLanguages();
             render();
             setStatus("Showing recently cached GitHub data", false);
           } else {
@@ -299,11 +279,6 @@
         });
       }
 
-      languageFilter.addEventListener("change", function () {
-        activeLanguage = languageFilter.value;
-        visibleCount = PAGE_SIZE;
-        render();
-      });
       searchInput.addEventListener("input", function () {
         visibleCount = PAGE_SIZE;
         render();
