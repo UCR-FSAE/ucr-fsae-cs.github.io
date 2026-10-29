@@ -53,6 +53,8 @@
     .repo-search::placeholder { color: #8d9aa8; }
     .repo-state { display: flex; align-items: center; gap: 10px; color: #aab5c1; font: 600 .63rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
     .repo-state .live-dot { width: 7px; height: 7px; }
+    .repo-category + .repo-category { margin-top: 36px; }
+    .repo-category h3 { margin: 0 0 16px; color: var(--gold); font-size: 1.6rem; }
     .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-light); border-left: 1px solid var(--line-light); }
     .repo-card { display: flex; flex-direction: column; min-height: 240px; padding: 22px; border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); background: rgba(14,28,43,.72); transition: background .2s, transform .2s; }
     .repo-card:hover { background: #12243a; transform: translateY(-2px); }
@@ -60,11 +62,11 @@
     .repo-language { display: flex; align-items: center; gap: 7px; }
     .repo-language::before { width: 7px; height: 7px; content: ""; border-radius: 50%; background: var(--gold); }
     .repo-fork { padding: 4px 6px; border: 1px solid rgba(255,255,255,.2); }
-    .repo-card h3 { margin: 27px 0 10px; font-size: 1.23rem; letter-spacing: -.035em; overflow-wrap: anywhere; }
+    .repo-card h4 { margin: 27px 0 10px; font-size: 1.23rem; letter-spacing: -.035em; overflow-wrap: anywhere; }
     .repo-card p { display: -webkit-box; overflow: hidden; margin: 0; color: #aeb8c4; font-size: .81rem; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
     .repo-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 25px; color: #8795a4; font: 600 .6rem/1.4 var(--mono); text-transform: uppercase; }
     .repo-card a { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; }
-    .repo-card a:hover h3 { color: var(--gold); }
+    .repo-card a:hover h4 { color: var(--gold); }
     .repo-card .arrow { color: var(--gold); font-size: 1.1rem; }
     .repo-empty { grid-column: 1 / -1; padding: 42px 24px; border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); color: #aeb8c4; }
     .repo-empty strong { display: block; margin-bottom: 8px; color: #fff; }
@@ -108,7 +110,7 @@
             <div class="eyebrow">UCR FSAE</div>
             <h2>Our Repositories</h2>
           </div>
-          <p>We develope the firmware and software that controls the vehicle, monitors its health, and keeps it compliant with competition rules. We program a costum Vehicle Control Unit (VCU), Data Acquisition (DAQ) system, Battery Management System (BMS), and driver dashboard.</p>
+          <p>Our projects include a costum Vehicle Control Unit (VCU), Data Acquisition (DAQ) system, Battery Management System (BMS), and driver dashboard.</p>
         </div>
         <div class="repo-controls">
           <div class="repo-tools">
@@ -117,12 +119,11 @@
           </div>
           <div class="repo-state" id="repo-status" role="status" aria-live="polite"><span class="live-dot" aria-hidden="true"></span><span>Connecting to GitHub…</span></div>
         </div>
-        <div class="repo-grid" id="repo-grid" aria-live="polite" aria-busy="true">
+        <div id="repo-grid" aria-live="polite" aria-busy="true">
           <div class="repo-empty"><strong>Loading public repositories…</strong>Fetching project information from UCR-FSAE on GitHub.</div>
         </div>
         <div class="repo-bottom">
           <span id="repo-count">Project directory</span>
-          <button class="load-more" id="load-more" type="button" hidden>Show more projects <span aria-hidden="true">↓</span></button>
           <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">View UCR-FSAE on GitHub ↗</a>
         </div>
         <noscript><p class="noscript">JavaScript is needed to load live repository details. Visit <a href="https://github.com/UCR-FSAE">the UCR-FSAE GitHub organization</a> to browse its public projects.</p></noscript>
@@ -140,14 +141,16 @@
       var API_URL = "https://api.github.com/orgs/UCR-FSAE/repos?type=public&sort=updated&per_page=100";
       var CACHE_KEY = "ucrFsaePublicRepositoriesV1";
       var CACHE_TTL = 5 * 60 * 1000;
-      var PAGE_SIZE = 9;
+      var categories = [
+        { name: "27E", repositories: ["daq", "vcu27e", "vcu27e-test-bench", "esp32-dashboard", "bmu27e"] },
+        { name: "26E", repositories: ["vcu26e", "thermsenseesp", "ergodashv4", "canparser"] },
+        { name: "Legacy", repositories: [] }
+      ];
       var repositories = [];
-      var visibleCount = PAGE_SIZE;
       var grid = document.getElementById("repo-grid");
       var status = document.getElementById("repo-status");
       var count = document.getElementById("repo-count");
       var searchInput = document.getElementById("repo-search");
-      var loadMore = document.getElementById("load-more");
 
       function escapeHtml(value) {
         return String(value == null ? "" : value).replace(/[&<>"']/g, function (char) {
@@ -188,7 +191,7 @@
         return '<article class="repo-card">' +
           '<div class="repo-card-head"><span class="repo-language">' + escapeHtml(language) + '</span>' + forkBadge + '</div>' +
           '<a href="' + escapeHtml(repo.html_url) + '" target="_blank" rel="noopener noreferrer" aria-label="Open ' + escapeHtml(repo.name) + ' on GitHub">' +
-            '<h3>' + escapeHtml(repo.name) + '</h3><span class="arrow" aria-hidden="true">↗</span>' +
+            '<h4>' + escapeHtml(repo.name) + '</h4><span class="arrow" aria-hidden="true">↗</span>' +
           '</a>' +
           '<p>' + escapeHtml(description) + '</p>' +
           '<div class="repo-card-foot"><span>' + (repo.archived ? "Archived" : "Updated " + escapeHtml(relativeDate(repo.updated_at))) + '</span><span>Open repository ↗</span></div>' +
@@ -205,18 +208,27 @@
 
       function render() {
         var filtered = getFilteredRepos();
-        var shown = filtered.slice(0, visibleCount);
         grid.setAttribute("aria-busy", "false");
         if (!filtered.length) {
           grid.innerHTML = '<div class="repo-empty"><strong>No matching projects.</strong>Try another search.</div>';
         } else {
-          grid.innerHTML = shown.map(makeCard).join("");
+          grid.innerHTML = categories.map(function (category, index) {
+            var members = filtered.filter(function (repo) {
+              var name = repo.name.toLowerCase();
+              if (category.name === "Legacy") {
+                return !categories.some(function (group) { return group.repositories.indexOf(name) !== -1; });
+              }
+              return category.repositories.indexOf(name) !== -1;
+            });
+            if (!members.length) return "";
+            return '<section class="repo-category" aria-labelledby="repo-category-' + index + '">' +
+              '<h3 id="repo-category-' + index + '">' + category.name + '</h3>' +
+              '<div class="repo-grid">' + members.map(makeCard).join("") + '</div></section>';
+          }).join("");
         }
         count.textContent = filtered.length === repositories.length
-          ? repositories.length + " public repositories · sorted by recent activity"
+          ? repositories.length + " public repositories · grouped by vehicle generation"
           : filtered.length + " of " + repositories.length + " repositories";
-        loadMore.hidden = shown.length >= filtered.length;
-        loadMore.disabled = shown.length >= filtered.length;
       }
 
       function renderFallback() {
@@ -232,6 +244,10 @@
         setStatus("GitHub connection unavailable", false);
       }
 
+      function isVisibleRepository(repo) {
+        return !repo.private && !repo.disabled && repo.name.toLowerCase() !== "ucr-fsae-cs.github.io";
+      }
+
       function loadRepositories() {
         var cached = null;
         try {
@@ -240,7 +256,7 @@
           cached = null;
         }
         if (cached && cached.savedAt && Date.now() - cached.savedAt < CACHE_TTL && Array.isArray(cached.items)) {
-          repositories = cached.items;
+          repositories = cached.items.filter(isVisibleRepository);
           render();
           setStatus("Live from GitHub · cached for this session", true);
           return;
@@ -259,7 +275,7 @@
         }).then(function (items) {
           window.clearTimeout(timeoutId);
           if (!Array.isArray(items)) throw new Error("Unexpected GitHub response");
-          repositories = items.filter(function (repo) { return !repo.private && !repo.disabled; });
+          repositories = items.filter(isVisibleRepository);
           try {
             sessionStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), items: repositories }));
           } catch (error) {
@@ -270,7 +286,7 @@
         }).catch(function () {
           window.clearTimeout(timeoutId);
           if (cached && Array.isArray(cached.items)) {
-            repositories = cached.items;
+            repositories = cached.items.filter(isVisibleRepository);
             render();
             setStatus("Showing recently cached GitHub data", false);
           } else {
@@ -280,11 +296,6 @@
       }
 
       searchInput.addEventListener("input", function () {
-        visibleCount = PAGE_SIZE;
-        render();
-      });
-      loadMore.addEventListener("click", function () {
-        visibleCount += PAGE_SIZE;
         render();
       });
 
