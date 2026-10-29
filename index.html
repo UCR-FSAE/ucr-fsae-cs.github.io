@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111c">
+  <meta name="description" content="Computer Science at Highlander Racing builds the embedded software, vehicle data systems, and engineering tools behind UC Riverside's Formula SAE Electric car.">
+  <meta property="og:title" content="Highlander Racing / Computer Science">
+  <meta property="og:description" content="Software for the car. Built by Highlanders. Explore public projects from UCR-FSAE on GitHub.">
+  <title>Computer Science — Highlander Racing</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #101923;
+      --navy: #08111c;
+      --navy-2: #101e2c;
+      --blue: #1747a6;
+      --blue-bright: #4f82ff;
+      --gold: #ffd34e;
+      --paper: #f2f0e9;
+      --white: #fffefa;
+      --muted: #68737e;
+      --line: rgba(16, 25, 35, .14);
+      --line-light: rgba(255, 255, 255, .16);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --max: 1240px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--blue-bright); outline-offset: 4px; }
+    ::selection { background: var(--gold); color: var(--navy); }
+    .skip-link { position: fixed; z-index: 20; left: 1rem; top: 1rem; transform: translateY(-160%); padding: .8rem 1rem; background: var(--gold); color: var(--navy); font-weight: 800; }
+    .skip-link:focus { transform: translateY(0); }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow { display: flex; gap: .65rem; align-items: center; font: 700 .69rem/1.3 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; }
+    .section { padding: 112px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 42px; }
+    .section-head h2 { max-width: 720px; margin: 16px 0 0; font-size: clamp(2.5rem, 5vw, 5rem); line-height: .96; letter-spacing: -.065em; font-weight: 760; }
+    .section-head p { max-width: 360px; margin: 0 0 5px; color: var(--muted); line-height: 1.65; }
+
+    .topbar { position: sticky; top: 0; z-index: 10; color: #fff; background: rgba(8, 17, 28, .94); border-bottom: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(14px); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--gold); color: var(--gold); font: 800 .68rem/1 var(--mono); letter-spacing: -.08em; }
+    .brand-copy { display: grid; gap: 2px; font-size: .8rem; font-weight: 740; letter-spacing: .01em; }
+    .brand-copy small { color: #aab6c3; font: 600 .58rem/1.3 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(16px, 3vw, 38px); }
+    .nav-links a { color: #d5dce4; font: 650 .71rem/1 var(--mono); letter-spacing: .04em; text-decoration: none; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { padding: 13px 16px; border: 1px solid rgba(255,255,255,.35); color: #fff !important; }
+    .nav-cta:hover { border-color: var(--gold); color: var(--gold) !important; }
+
+    .hero { position: relative; overflow: hidden; min-height: 700px; color: #f5f7fa; background: var(--navy); }
+    .hero::before { position: absolute; inset: 0; content: ""; opacity: .2; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(90deg, black, transparent 85%); }
+    .hero::after { position: absolute; width: 650px; height: 650px; right: -5%; top: 8%; content: ""; border-radius: 50%; background: radial-gradient(circle, rgba(23,71,166,.35), rgba(23,71,166,0) 68%); pointer-events: none; }
+    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .95fr) minmax(420px, 1.05fr); align-items: center; gap: 28px; min-height: 700px; padding-top: 58px; padding-bottom: 78px; }
+    .hero-copy { position: relative; z-index: 2; padding: 24px 0 45px; }
+    .hero .eyebrow { color: var(--gold); }
+    .hero h1 { max-width: 690px; margin: 25px 0 22px; font-size: clamp(4.1rem, 8.3vw, 8rem); line-height: .83; letter-spacing: -.09em; font-weight: 790; }
+    .hero h1 span { display: block; color: var(--gold); }
+    .hero-lede { max-width: 480px; margin: 0; color: #c3cbd4; font-size: clamp(1.02rem, 1.5vw, 1.2rem); line-height: 1.65; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 0 18px; border: 1px solid transparent; text-decoration: none; font-size: .78rem; font-weight: 800; letter-spacing: .035em; transition: transform .2s, background .2s, border-color .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-gold { background: var(--gold); color: var(--navy); }
+    .button-gold:hover { background: #ffe07e; }
+    .button-outline { border-color: rgba(255,255,255,.36); color: #fff; }
+    .button-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-note { display: flex; align-items: center; gap: 9px; margin-top: 34px; color: #8f9baa; font: 600 .65rem/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #67d69b; box-shadow: 0 0 0 4px rgba(103,214,155,.12); }
+    .hero-art { position: relative; min-width: 0; }
+    .car-frame { position: relative; min-height: 470px; border: 1px solid rgba(255,255,255,.16); background: linear-gradient(145deg, rgba(31,54,78,.55), rgba(6,14,23,.2)); }
+    .car-frame::before { position: absolute; inset: 14px; content: ""; border: 1px solid rgba(255,255,255,.07); pointer-events: none; }
+    .car-svg { position: absolute; inset: 7% 1% 14%; width: 98%; height: 78%; overflow: visible; }
+    .art-label { position: absolute; padding: 9px 11px; background: rgba(7,16,27,.84); border: 1px solid rgba(255,255,255,.16); color: #d5deea; font: 600 .59rem/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+    .art-label b { display: block; margin-top: 3px; color: var(--gold); font-size: .73rem; }
+    .label-one { top: 13%; left: 7%; }
+    .label-two { right: 5%; top: 40%; }
+    .label-three { bottom: 17%; left: 19%; }
+    .art-index { position: absolute; bottom: 27px; left: 29px; color: #9aa6b3; font: 600 .62rem/1.4 var(--mono); letter-spacing: .08em; }
+    .art-index strong { color: #f1f4f7; font-weight: 600; }
+    .hero-caption { position: absolute; right: 29px; bottom: 27px; color: var(--gold); font: 700 .61rem/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .spec-strip { position: relative; z-index: 2; color: var(--ink); background: var(--gold); }
+    .spec-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .spec { display: flex; align-items: baseline; gap: 12px; min-height: 76px; padding: 19px 22px; border-left: 1px solid rgba(16,25,35,.16); }
+    .spec:last-child { border-right: 1px solid rgba(16,25,35,.16); }
+    .spec strong { font: 800 .7rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+    .spec span { color: rgba(16,25,35,.68); font: 650 .65rem/1.35 var(--mono); text-transform: uppercase; }
+
+    .systems { background: var(--paper); }
+    .systems-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .system-card { position: relative; display: flex; flex-direction: column; min-height: 275px; padding: 29px; border: 1px solid var(--line); background: var(--white); }
+    .system-card:nth-child(2) { background: #e5e9f0; }
+    .system-card:nth-child(3) { color: #f4f6f9; background: var(--navy-2); }
+    .system-card:nth-child(4) { background: #e5c84a; }
+    .system-top { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+    .system-number { color: var(--muted); font: 700 .65rem/1.4 var(--mono); letter-spacing: .1em; }
+    .system-icon { display: grid; place-items: center; width: 43px; height: 43px; border: 1px solid currentColor; font: 700 .7rem/1 var(--mono); }
+    .system-card h3 { margin: auto 0 10px; font-size: 1.58rem; letter-spacing: -.045em; }
+    .system-card p { max-width: 410px; margin: 0; color: var(--muted); line-height: 1.6; font-size: .9rem; }
+    .system-card:nth-child(3) p, .system-card:nth-child(3) .system-number { color: #bdc7d2; }
+    .system-card:nth-child(4) p, .system-card:nth-child(4) .system-number { color: rgba(16,25,35,.72); }
+    .system-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+    .system-tags span { padding: 6px 8px; border: 1px solid rgba(16,25,35,.18); font: 650 .58rem/1 var(--mono); text-transform: uppercase; }
+    .system-card:nth-child(3) .system-tags span { border-color: rgba(255,255,255,.24); }
+
+    .repositories { position: relative; color: #f2f4f8; background: var(--navy); }
+    .repositories::before { position: absolute; inset: 0; content: ""; opacity: .13; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(180deg, transparent, black 15%, black 85%, transparent); }
+    .repositories .wrap { position: relative; z-index: 1; }
+    .repositories .section-head p { color: #aab5c1; }
+    .repo-controls { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+    .repo-tools { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .filter-select, .repo-search { min-height: 44px; border: 1px solid rgba(255,255,255,.22); border-radius: 0; background: #0c1927; color: #eef2f6; }
+    .filter-select { padding: 0 34px 0 13px; font-size: .75rem; }
+    .repo-search { width: min(270px, 31vw); padding: 0 13px; }
+    .repo-search::placeholder { color: #8d9aa8; }
+    .repo-state { display: flex; align-items: center; gap: 10px; color: #aab5c1; font: 600 .63rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
+    .repo-state .live-dot { width: 7px; height: 7px; }
+    .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-light); border-left: 1px solid var(--line-light); }
+    .repo-card { display: flex; flex-direction: column; min-height: 240px; padding: 22px; border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); background: rgba(14,28,43,.72); transition: background .2s, transform .2s; }
+    .repo-card:hover { background: #12243a; transform: translateY(-2px); }
+    .repo-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #9aabba; font: 600 .58rem/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .repo-language { display: flex; align-items: center; gap: 7px; }
+    .repo-language::before { width: 7px; height: 7px; content: ""; border-radius: 50%; background: var(--gold); }
+    .repo-fork { padding: 4px 6px; border: 1px solid rgba(255,255,255,.2); }
+    .repo-card h3 { margin: 27px 0 10px; font-size: 1.23rem; letter-spacing: -.035em; overflow-wrap: anywhere; }
+    .repo-card p { display: -webkit-box; overflow: hidden; margin: 0; color: #aeb8c4; font-size: .81rem; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+    .repo-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 25px; color: #8795a4; font: 600 .6rem/1.4 var(--mono); text-transform: uppercase; }
+    .repo-card a { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; }
+    .repo-card a:hover h3 { color: var(--gold); }
+    .repo-card .arrow { color: var(--gold); font-size: 1.1rem; }
+    .repo-empty { grid-column: 1 / -1; padding: 42px 24px; border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); color: #aeb8c4; }
+    .repo-empty strong { display: block; margin-bottom: 8px; color: #fff; }
+    .repo-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; color: #aab5c1; font: 600 .63rem/1.4 var(--mono); }
+    .repo-bottom a { color: var(--gold); text-decoration: none; }
+    .repo-bottom a:hover { text-decoration: underline; }
+    .load-more { min-height: 42px; padding: 0 14px; border: 1px solid rgba(255,255,255,.34); background: transparent; color: #fff; font: 700 .65rem/1 var(--mono); text-transform: uppercase; cursor: pointer; }
+    .load-more:hover { border-color: var(--gold); color: var(--gold); }
+    .load-more[hidden] { display: none; }
+
+    .workflow { background: #e5e9f0; }
+    .workflow-layout { display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); gap: 8vw; align-items: start; }
+    .workflow-intro h2 { margin: 18px 0; font-size: clamp(2.6rem, 5vw, 5rem); line-height: .93; letter-spacing: -.07em; }
+    .workflow-intro p { max-width: 350px; color: var(--muted); line-height: 1.65; }
+    .workflow-list { border-top: 1px solid rgba(16,25,35,.24); }
+    .workflow-row { display: grid; grid-template-columns: 56px 1fr; gap: 18px; padding: 25px 0; border-bottom: 1px solid rgba(16,25,35,.24); }
+    .workflow-row .step { color: var(--blue); font: 700 .69rem/1.5 var(--mono); }
+    .workflow-row h3 { margin: 0 0 7px; font-size: 1.08rem; letter-spacing: -.025em; }
+    .workflow-row p { max-width: 540px; margin: 0; color: #606c77; font-size: .87rem; line-height: 1.6; }
+
+    .join { position: relative; overflow: hidden; color: #fff; background: var(--blue); }
+    .join::after { position: absolute; width: 490px; height: 490px; top: -180px; right: -90px; content: ""; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; box-shadow: 0 0 0 54px rgba(255,255,255,.035), 0 0 0 108px rgba(255,255,255,.025), 0 0 0 162px rgba(255,255,255,.018); }
+    .join-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 36px; }
+    .join .eyebrow { color: var(--gold); }
+    .join h2 { max-width: 750px; margin: 19px 0; font-size: clamp(3.1rem, 7vw, 7rem); line-height: .88; letter-spacing: -.08em; }
+    .join p { max-width: 470px; margin: 0; color: #d8e1f4; line-height: 1.65; }
+    .join-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .join .button-outline { border-color: rgba(255,255,255,.55); }
+    .join .button-outline:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .join-stamp { display: grid; place-items: center; flex: 0 0 158px; width: 158px; height: 158px; margin-bottom: 5px; border: 1px solid rgba(255,255,255,.48); border-radius: 50%; color: var(--gold); font: 700 .66rem/1.7 var(--mono); letter-spacing: .09em; text-align: center; text-transform: uppercase; transform: rotate(-12deg); }
+    .footer { color: #a8b2bd; background: var(--navy); }
+    .footer-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--line-light); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer-links a { color: #d2d9e1; font: 600 .63rem/1.3 var(--mono); letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-note { display: flex; justify-content: space-between; gap: 20px; padding: 17px 0 24px; font: 500 .58rem/1.5 var(--mono); }
+    .footer-note p { margin: 0; }
+    .footer-note a { color: #d0d8e0; text-decoration: none; }
+    .footer-note a:hover { color: var(--gold); }
+    .noscript { margin: 15px 0; padding: 12px; border: 1px solid rgba(255,255,255,.3); color: #fff; font-size: .85rem; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; padding-top: 60px; }
+      .hero-copy { padding-bottom: 0; }
+      .hero h1 { max-width: 800px; }
+      .hero-art { width: min(100%, 700px); margin: 10px auto 0; }
+      .car-frame { min-height: 430px; }
+      .section { padding: 88px 0; }
+      .repo-grid { grid-template-columns: repeat(2, 1fr); }
+      .workflow-layout { gap: 42px; }
+      .join-stamp { flex-basis: 130px; width: 130px; height: 130px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(var(--max), calc(100% - 32px)); }
+      .nav { min-height: 66px; }
+      .brand-copy { font-size: .74rem; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: .58rem; }
+      .nav-links a:nth-child(1), .nav-links a:nth-child(2) { display: none; }
+      .nav-cta { padding: 11px 10px; }
+      .hero, .hero-inner { min-height: auto; }
+      .hero-inner { gap: 35px; padding-top: 64px; padding-bottom: 48px; }
+      .hero h1 { font-size: clamp(3.6rem, 16vw, 6rem); }
+      .hero-lede { font-size: 1rem; }
+      .car-frame { min-height: 300px; }
+      .label-one { top: 8%; left: 5%; }
+      .label-two { top: 35%; right: 3%; }
+      .label-three { bottom: 18%; left: 11%; }
+      .art-index { left: 20px; bottom: 18px; }
+      .hero-caption { right: 20px; bottom: 18px; }
+      .spec-inner { grid-template-columns: 1fr 1fr; }
+      .spec { min-height: 66px; padding: 14px 11px; border-bottom: 1px solid rgba(16,25,35,.16); }
+      .spec:nth-child(2) { border-right: 1px solid rgba(16,25,35,.16); }
+      .spec:nth-child(3) { border-bottom: 0; }
+      .spec:last-child { border-bottom: 0; }
+      .section { padding: 72px 0; }
+      .section-head { display: block; margin-bottom: 30px; }
+      .section-head p { margin-top: 18px; }
+      .section-head h2 { font-size: clamp(2.75rem, 12vw, 4.5rem); }
+      .systems-grid { grid-template-columns: 1fr; }
+      .system-card { min-height: 235px; padding: 23px; }
+      .repo-controls { align-items: stretch; flex-direction: column; }
+      .repo-tools { flex-wrap: wrap; }
+      .filter-select { flex: 1; min-width: 140px; }
+      .repo-search { flex: 1 1 100%; width: 100%; }
+      .repo-grid { grid-template-columns: 1fr; }
+      .repo-card { min-height: 205px; }
+      .repo-bottom { align-items: start; flex-direction: column; }
+      .workflow-layout { grid-template-columns: 1fr; gap: 30px; }
+      .workflow-intro h2 { font-size: clamp(3rem, 13vw, 4.5rem); }
+      .join-inner { display: block; }
+      .join h2 { font-size: clamp(3.25rem, 14vw, 5.5rem); }
+      .join-stamp { width: 104px; height: 104px; margin: 42px 0 0 9px; font-size: .55rem; }
+      .footer-main, .footer-note { align-items: start; flex-direction: column; }
+      .footer-links { gap: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Highlander Racing Computer Science home">
+        <span class="brand-mark" aria-hidden="true">HR/CS</span>
+        <span class="brand-copy">Highlander Racing<small>Computer Science · UCR</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#systems">Systems</a>
+        <a href="#repositories">Projects</a>
+        <a href="#workflow">How we build</a>
+        <a class="nav-cta" href="#join">Get involved <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">Computer Science · Highlander Racing</div>
+          <h1>Software for <span>the car.</span></h1>
+          <p class="hero-lede">We build the embedded systems that help an electric race car sense, decide, and respond. Made by students at UC Riverside. Tested against the real world.</p>
+          <div class="hero-actions">
+            <a class="button button-gold" href="#repositories">Explore the code <span aria-hidden="true">↓</span></a>
+            <a class="button button-outline" href="https://www.highlanderracing.org/" target="_blank" rel="noopener noreferrer">Meet Highlander Racing <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-note"><span class="live-dot" aria-hidden="true"></span> Riverside, California · UCR Formula SAE Electric</div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of an electric formula race car with its software systems highlighted" role="img">
+          <div class="car-frame">
+            <svg class="car-svg" viewBox="0 0 760 410" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="bodyPaint" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#ffd34e"/>
+                  <stop offset=".46" stop-color="#f3b928"/>
+                  <stop offset="1" stop-color="#a66c12"/>
+                </linearGradient>
+                <linearGradient id="glass" x1="0" x2="1">
+                  <stop stop-color="#7fa9db" stop-opacity=".85"/>
+                  <stop offset="1" stop-color="#152c4a" stop-opacity=".92"/>
+                </linearGradient>
+                <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="7" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <ellipse cx="390" cy="330" rx="275" ry="26" fill="#02070d" opacity=".7"/>
+              <g stroke="#8aa7c5" stroke-width="5" fill="none" opacity=".86">
+                <path d="M125 252 L224 234 L302 211 L406 202 L529 218 L617 240"/>
+                <path d="M178 292 L255 246 L300 208 M565 292 L522 247 L480 206"/>
+                <path d="M121 250 L164 297 M618 240 L576 298"/>
+                <path d="M133 251 L109 248 M617 240 L645 235"/>
+              </g>
+              <g fill="#08111c" stroke="#dbe5ef" stroke-width="5">
+                <circle cx="162" cy="291" r="43"/><circle cx="162" cy="291" r="22" fill="#27384a"/>
+                <circle cx="575" cy="291" r="43"/><circle cx="575" cy="291" r="22" fill="#27384a"/>
+                <circle cx="254" cy="294" r="35"/><circle cx="254" cy="294" r="17" fill="#27384a"/>
+                <circle cx="494" cy="294" r="35"/><circle cx="494" cy="294" r="17" fill="#27384a"/>
+              </g>
+              <path d="M122 251 L207 228 L282 210 L350 192 L449 194 L525 212 L607 233 L586 251 L520 248 L474 229 L289 231 L240 250 L162 270 L128 265 Z" fill="url(#bodyPaint)" stroke="#ffe17d" stroke-width="3"/>
+              <path d="M278 212 L323 164 Q344 148 390 148 L428 190 L450 197 L450 215 L332 218 Z" fill="#18283a" stroke="#ffd34e" stroke-width="3"/>
+              <path d="M326 163 Q348 153 382 154 L413 188 L335 187 Z" fill="url(#glass)" stroke="#9dc2ec" stroke-width="2"/>
+              <path d="M203 228 L223 186 L284 183 L298 211 M449 198 L492 172 L536 185 L548 218" fill="none" stroke="#f4f6f8" stroke-width="5"/>
+              <path d="M115 245 L118 221 L231 218 L225 232 M566 222 L636 220 L650 232 L645 241" fill="none" stroke="#d8e3ef" stroke-width="7"/>
+              <path d="M295 218 L334 203 L445 202 L494 222 L462 237 L301 239 Z" fill="#1747a6" stroke="#75a1ff" stroke-width="3"/>
+              <path d="M354 208 L381 198 L413 202 L426 220 L389 226 L356 222 Z" fill="#0b1826" stroke="#ffd34e" stroke-width="2"/>
+              <rect x="366" y="206" width="41" height="14" rx="2" fill="#ffd34e" opacity=".95"/>
+              <path d="M324 199 L345 193 M445 203 L467 212" stroke="#8ab1ff" stroke-width="2" stroke-dasharray="4 6"/>
+              <g fill="#ffd34e" filter="url(#glow)">
+                <circle cx="386" cy="213" r="5"/><circle cx="328" cy="222" r="3"/><circle cx="469" cy="225" r="3"/>
+              </g>
+              <g stroke="#4f82ff" stroke-width="1.5" stroke-dasharray="5 5" fill="none">
+                <path d="M384 209 Q339 133 254 105"/><path d="M399 211 Q473 148 570 126"/><path d="M381 219 Q328 280 296 337"/>
+              </g>
+              <g fill="#ffd34e">
+                <circle cx="254" cy="105" r="4"/><circle cx="570" cy="126" r="4"/><circle cx="296" cy="337" r="4"/>
+              </g>
+              <text x="112" y="104" fill="#bdcbe0" font-family="monospace" font-size="10" letter-spacing="2">CONTROL</text>
+              <text x="576" y="121" fill="#bdcbe0" font-family="monospace" font-size="10" letter-spacing="2">TELEMETRY</text>
+              <text x="257" y="361" fill="#bdcbe0" font-family="monospace" font-size="10" letter-spacing="2">VEHICLE NETWORK</text>
+            </svg>
+            <div class="art-label label-one">01 / Control<b>VCU · Embedded</b></div>
+            <div class="art-label label-two">02 / Observe<b>DAQ · Telemetry</b></div>
+            <div class="art-label label-three">03 / Communicate<b>CAN · Vehicle systems</b></div>
+            <div class="art-index">UCR / FSAE <strong>— ELECTRIC</strong></div>
+            <div class="hero-caption">Connected by code ↗</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-strip">
+        <div class="wrap spec-inner">
+          <div class="spec"><strong>Embedded</strong><span>C / C++</span></div>
+          <div class="spec"><strong>Vehicle data</strong><span>DAQ · CAN</span></div>
+          <div class="spec"><strong>Electronics</strong><span>VCU · BMS</span></div>
+          <div class="spec"><strong>Built at</strong><span>UC Riverside</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section systems" id="systems">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">A connected system</div>
+            <h2>Code that meets the car.</h2>
+          </div>
+          <p>Computer Science works across the vehicle: controlling hardware, collecting useful data, and helping teammates diagnose what is happening on track and in the workshop.</p>
+        </div>
+        <div class="systems-grid">
+          <article class="system-card">
+            <div class="system-top"><span class="system-number">SYSTEM 01</span><span class="system-icon" aria-hidden="true">VCU</span></div>
+            <h3>Control</h3>
+            <p>Embedded software reads vehicle inputs, checks conditions, and communicates with the systems that control the car.</p>
+            <div class="system-tags"><span>Vehicle control</span><span>Firmware</span></div>
+          </article>
+          <article class="system-card">
+            <div class="system-top"><span class="system-number">SYSTEM 02</span><span class="system-icon" aria-hidden="true">DAQ</span></div>
+            <h3>Measure</h3>
+            <p>Data acquisition and logging turn signals from the car into information engineers can inspect, compare, and use.</p>
+            <div class="system-tags"><span>Data logging</span><span>Diagnostics</span></div>
+          </article>
+          <article class="system-card">
+            <div class="system-top"><span class="system-number">SYSTEM 03</span><span class="system-icon" aria-hidden="true">BMS</span></div>
+            <h3>Monitor</h3>
+            <p>Battery and vehicle electronics need dependable communication and monitoring throughout testing and competition.</p>
+            <div class="system-tags"><span>Battery systems</span><span>CAN bus</span></div>
+          </article>
+          <article class="system-card">
+            <div class="system-top"><span class="system-number">SYSTEM 04</span><span class="system-icon" aria-hidden="true">↔</span></div>
+            <h3>Integrate</h3>
+            <p>Software connects to custom hardware and collaborates with electrical, battery, drivetrain, and vehicle teams.</p>
+            <div class="system-tags"><span>Hardware in the loop</span><span>Team engineering</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section repositories" id="repositories">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Open engineering</div>
+            <h2>Made in the repos.</h2>
+          </div>
+          <p>Browse public work from the UCR-FSAE GitHub organization. This directory loads repository names, descriptions, languages, and update dates directly from GitHub.</p>
+        </div>
+        <div class="repo-controls">
+          <div class="repo-tools">
+            <label class="visually-hidden" for="language-filter">Filter projects by language</label>
+            <select class="filter-select" id="language-filter" aria-label="Filter projects by language">
+              <option value="all">All languages</option>
+            </select>
+            <label class="visually-hidden" for="repo-search">Search public repositories</label>
+            <input class="repo-search" id="repo-search" type="search" placeholder="Search projects…" autocomplete="off">
+          </div>
+          <div class="repo-state" id="repo-status" role="status" aria-live="polite"><span class="live-dot" aria-hidden="true"></span><span>Connecting to GitHub…</span></div>
+        </div>
+        <div class="repo-grid" id="repo-grid" aria-live="polite" aria-busy="true">
+          <div class="repo-empty"><strong>Loading public repositories…</strong>Fetching project information from UCR-FSAE on GitHub.</div>
+        </div>
+        <div class="repo-bottom">
+          <span id="repo-count">Project directory</span>
+          <button class="load-more" id="load-more" type="button" hidden>Show more projects <span aria-hidden="true">↓</span></button>
+          <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">View UCR-FSAE on GitHub ↗</a>
+        </div>
+        <noscript><p class="noscript">JavaScript is needed to load live repository details. Visit <a href="https://github.com/UCR-FSAE">the UCR-FSAE GitHub organization</a> to browse its public projects.</p></noscript>
+      </div>
+    </section>
+
+    <section class="section workflow" id="workflow">
+      <div class="wrap workflow-layout">
+        <div class="workflow-intro">
+          <div class="eyebrow">How we build</div>
+          <h2>From a signal to a system.</h2>
+          <p>Software for a race car has to work with real sensors, wiring, control units, and the people integrating them.</p>
+        </div>
+        <div class="workflow-list">
+          <article class="workflow-row"><div class="step">01 /</div><div><h3>Understand the hardware</h3><p>Start with the vehicle system, its electronics, the signals it exchanges, and the conditions it needs to handle.</p></div></article>
+          <article class="workflow-row"><div class="step">02 /</div><div><h3>Build and review</h3><p>Develop firmware and tools in shared repositories so teammates can review changes, follow the work, and build on it.</p></div></article>
+          <article class="workflow-row"><div class="step">03 /</div><div><h3>Test with the system</h3><p>Bring software together with vehicle hardware, inspect the data, and refine the integration as the car evolves.</p></div></article>
+          <article class="workflow-row"><div class="step">04 /</div><div><h3>Share what we learn</h3><p>Public repositories make project history and engineering work easier for future teammates, collaborators, and supporters to explore.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section join" id="join">
+      <div class="wrap join-inner">
+        <div>
+          <div class="eyebrow">Build with us</div>
+          <h2>Bring your curiosity.<br>Ship something real.</h2>
+          <p>Highlander Racing is a student engineering team at UC Riverside. Explore the code, learn about the team, or get in touch about joining and supporting the program.</p>
+          <div class="join-actions">
+            <a class="button button-gold" href="mailto:ucrhighlanderracing@gmail.com?subject=Highlander%20Racing%20Computer%20Science">Contact the team <span aria-hidden="true">↗</span></a>
+            <a class="button button-outline" href="https://www.highlanderracing.org/" target="_blank" rel="noopener noreferrer">Team website <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="join-stamp" aria-hidden="true">One team<br>One car<br>UCR / FSAE</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-main">
+        <a class="brand" href="#top" aria-label="Back to top">
+          <span class="brand-mark" aria-hidden="true">HR/CS</span>
+          <span class="brand-copy">Highlander Racing<small>Computer Science · UCR</small></span>
+        </a>
+        <div class="footer-links">
+          <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://www.highlanderracing.org/" target="_blank" rel="noopener noreferrer">Highlander Racing ↗</a>
+          <a href="mailto:ucrhighlanderracing@gmail.com">Email ↗</a>
+        </div>
+      </div>
+      <div class="footer-note">
+        <p>UC Riverside · Formula SAE Electric · Computer Science</p>
+        <p>Public repository details are supplied by <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+  </style>
+  <script>
+    (function () {
+      "use strict";
+
+      var API_URL = "https://api.github.com/orgs/UCR-FSAE/repos?type=public&sort=updated&per_page=100";
+      var CACHE_KEY = "ucrFsaePublicRepositoriesV1";
+      var CACHE_TTL = 5 * 60 * 1000;
+      var PAGE_SIZE = 9;
+      var repositories = [];
+      var activeLanguage = "all";
+      var visibleCount = PAGE_SIZE;
+      var grid = document.getElementById("repo-grid");
+      var status = document.getElementById("repo-status");
+      var count = document.getElementById("repo-count");
+      var languageFilter = document.getElementById("language-filter");
+      var searchInput = document.getElementById("repo-search");
+      var loadMore = document.getElementById("load-more");
+
+      function escapeHtml(value) {
+        return String(value == null ? "" : value).replace(/[&<>"']/g, function (char) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char];
+        });
+      }
+
+      function relativeDate(value) {
+        if (!value) return "Date unavailable";
+        var date = new Date(value);
+        if (Number.isNaN(date.getTime())) return "Date unavailable";
+        var seconds = Math.round((date.getTime() - Date.now()) / 1000);
+        var units = [
+          ["year", 31536000], ["month", 2592000], ["week", 604800],
+          ["day", 86400], ["hour", 3600], ["minute", 60]
+        ];
+        for (var i = 0; i < units.length; i++) {
+          var amount = Math.abs(seconds);
+          if (amount >= units[i][1] || units[i][0] === "minute") {
+            var number = Math.round(seconds / units[i][1]);
+            if (window.Intl && Intl.RelativeTimeFormat) {
+              return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(number, units[i][0]);
+            }
+            return number < 0 ? Math.abs(number) + " " + units[i][0] + " ago" : "in " + number + " " + units[i][0];
+          }
+        }
+        return "Recently updated";
+      }
+
+      function setStatus(message, isLive) {
+        status.innerHTML = '<span class="' + (isLive ? "live-dot" : "") + '" aria-hidden="true"></span><span>' + escapeHtml(message) + "</span>";
+      }
+
+      function makeCard(repo) {
+        var language = repo.language || "Other";
+        var description = repo.description || "Public project from the UCR-FSAE engineering organization.";
+        var forkBadge = repo.fork ? '<span class="repo-fork">Fork</span>' : "";
+        return '<article class="repo-card">' +
+          '<div class="repo-card-head"><span class="repo-language">' + escapeHtml(language) + '</span>' + forkBadge + '</div>' +
+          '<a href="' + escapeHtml(repo.html_url) + '" target="_blank" rel="noopener noreferrer" aria-label="Open ' + escapeHtml(repo.name) + ' on GitHub">' +
+            '<h3>' + escapeHtml(repo.name) + '</h3><span class="arrow" aria-hidden="true">↗</span>' +
+          '</a>' +
+          '<p>' + escapeHtml(description) + '</p>' +
+          '<div class="repo-card-foot"><span>' + (repo.archived ? "Archived" : "Updated " + escapeHtml(relativeDate(repo.updated_at))) + '</span><span>Open repository ↗</span></div>' +
+        '</article>';
+      }
+
+      function getFilteredRepos() {
+        var query = searchInput.value.trim().toLowerCase();
+        return repositories.filter(function (repo) {
+          var matchesLanguage = activeLanguage === "all" || (repo.language || "Other") === activeLanguage;
+          var haystack = [repo.name, repo.description, repo.language].join(" ").toLowerCase();
+          return matchesLanguage && (!query || haystack.indexOf(query) !== -1);
+        });
+      }
+
+      function render() {
+        var filtered = getFilteredRepos();
+        var shown = filtered.slice(0, visibleCount);
+        grid.setAttribute("aria-busy", "false");
+        if (!filtered.length) {
+          grid.innerHTML = '<div class="repo-empty"><strong>No matching projects.</strong>Try another search or choose a different language.</div>';
+        } else {
+          grid.innerHTML = shown.map(makeCard).join("");
+        }
+        count.textContent = filtered.length === repositories.length
+          ? repositories.length + " public repositories · sorted by recent activity"
+          : filtered.length + " of " + repositories.length + " repositories";
+        loadMore.hidden = shown.length >= filtered.length;
+        loadMore.disabled = shown.length >= filtered.length;
+      }
+
+      function setupLanguages() {
+        var languages = Array.from(new Set(repositories.map(function (repo) { return repo.language || "Other"; }))).sort();
+        languageFilter.innerHTML = '<option value="all">All languages</option>' + languages.map(function (language) {
+          return '<option value="' + escapeHtml(language) + '">' + escapeHtml(language) + '</option>';
+        }).join("");
+      }
+
+      function renderFallback() {
+        var fallbacks = [
+          { name: "vcu27E", language: "C++", description: "UCR Highlander Racing's VCU for 27E.", html_url: "https://github.com/UCR-FSAE/vcu27E", updated_at: "", fork: false },
+          { name: "bmu27E", language: "C++", description: "Custom battery management system built around an ESP32-S3 and TI battery-monitor hardware.", html_url: "https://github.com/UCR-FSAE/bmu27E", updated_at: "", fork: false },
+          { name: "daq", language: "C++", description: "Data acquisition project from the UCR-FSAE organization.", html_url: "https://github.com/UCR-FSAE/daq", updated_at: "", fork: false },
+          { name: "vcu26E", language: "C", description: "Vehicle Control Unit for the 2026 electric car.", html_url: "https://github.com/UCR-FSAE/vcu26E", updated_at: "", fork: false }
+        ];
+        repositories = fallbacks;
+        setupLanguages();
+        render();
+        count.textContent = "Live project directory unavailable · showing selected public repositories";
+        setStatus("GitHub connection unavailable", false);
+      }
+
+      function loadRepositories() {
+        var cached = null;
+        try {
+          cached = JSON.parse(sessionStorage.getItem(CACHE_KEY) || "null");
+        } catch (error) {
+          cached = null;
+        }
+        if (cached && cached.savedAt && Date.now() - cached.savedAt < CACHE_TTL && Array.isArray(cached.items)) {
+          repositories = cached.items;
+          setupLanguages();
+          render();
+          setStatus("Live from GitHub · cached for this session", true);
+          return;
+        }
+
+        var controller = window.AbortController ? new AbortController() : null;
+        var timeoutId = window.setTimeout(function () {
+          if (controller) controller.abort();
+        }, 10000);
+        fetch(API_URL, {
+          headers: { "Accept": "application/vnd.github+json" },
+          signal: controller ? controller.signal : undefined
+        }).then(function (response) {
+          if (!response.ok) throw new Error("GitHub returned " + response.status);
+          return response.json();
+        }).then(function (items) {
+          window.clearTimeout(timeoutId);
+          if (!Array.isArray(items)) throw new Error("Unexpected GitHub response");
+          repositories = items.filter(function (repo) { return !repo.private && !repo.disabled; });
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), items: repositories }));
+          } catch (error) {
+            // The repository list still works when browser storage is unavailable.
+          }
+          setupLanguages();
+          render();
+          setStatus("Live from GitHub · public projects", true);
+        }).catch(function () {
+          window.clearTimeout(timeoutId);
+          if (cached && Array.isArray(cached.items)) {
+            repositories = cached.items;
+            setupLanguages();
+            render();
+            setStatus("Showing recently cached GitHub data", false);
+          } else {
+            renderFallback();
+          }
+        });
+      }
+
+      languageFilter.addEventListener("change", function () {
+        activeLanguage = languageFilter.value;
+        visibleCount = PAGE_SIZE;
+        render();
+      });
+      searchInput.addEventListener("input", function () {
+        visibleCount = PAGE_SIZE;
+        render();
+      });
+      loadMore.addEventListener("click", function () {
+        visibleCount += PAGE_SIZE;
+        render();
+      });
+
+      loadRepositories();
+    }());
+  </script>
+</body>
+</html>
