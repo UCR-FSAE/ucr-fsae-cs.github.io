@@ -67,7 +67,6 @@
     .repo-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 25px; color: #8795a4; font: 600 .6rem/1.4 var(--mono); text-transform: uppercase; }
     .repo-card a { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; }
     .repo-card a:hover h4 { color: var(--gold); }
-    .repo-card .arrow { color: var(--gold); font-size: 1.1rem; }
     .repo-empty { grid-column: 1 / -1; padding: 42px 24px; border-right: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); color: #aeb8c4; }
     .repo-empty strong { display: block; margin-bottom: 8px; color: #fff; }
     .repo-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; color: #aab5c1; font: 600 .63rem/1.4 var(--mono); }
@@ -107,8 +106,8 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">UCR FSAE</div>
-            <h2>Our Repositories</h2>
+            <div class="eyebrow">University of California, Riverside</div>
+            <h2>Highlander Racing Repositories</h2>
           </div>
           <p>Our projects include a costum Vehicle Control Unit (VCU), Data Acquisition (DAQ) system, Battery Management System (BMS), and driver dashboard.</p>
         </div>
@@ -191,7 +190,7 @@
         return '<article class="repo-card">' +
           '<div class="repo-card-head"><span class="repo-language">' + escapeHtml(language) + '</span>' + forkBadge + '</div>' +
           '<a href="' + escapeHtml(repo.html_url) + '" target="_blank" rel="noopener noreferrer" aria-label="Open ' + escapeHtml(repo.name) + ' on GitHub">' +
-            '<h4>' + escapeHtml(repo.name) + '</h4><span class="arrow" aria-hidden="true">↗</span>' +
+            '<h4>' + escapeHtml(repo.name) + '</h4>' +
           '</a>' +
           '<p>' + escapeHtml(description) + '</p>' +
           '<div class="repo-card-foot"><span>' + (repo.archived ? "Archived" : "Updated " + escapeHtml(relativeDate(repo.updated_at))) + '</span><span>Open repository ↗</span></div>' +
