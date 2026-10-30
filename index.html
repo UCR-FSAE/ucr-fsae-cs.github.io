@@ -122,7 +122,7 @@
           <div class="repo-empty"><strong>Loading public repositories…</strong>Fetching project information from UCR-FSAE on GitHub.</div>
         </div>
         <div class="repo-bottom">
-          <span id="repo-count">Project directory</span>
+          <span id="repo-count"></span>
           <a href="https://github.com/UCR-FSAE" target="_blank" rel="noopener noreferrer">View UCR-FSAE on GitHub ↗</a>
         </div>
         <noscript><p class="noscript">JavaScript is needed to load live repository details. Visit <a href="https://github.com/UCR-FSAE">the UCR-FSAE GitHub organization</a> to browse its public projects.</p></noscript>
@@ -226,7 +226,7 @@
           }).join("");
         }
         count.textContent = filtered.length === repositories.length
-          ? repositories.length + " public repositories · grouped by vehicle generation"
+          ? ""
           : filtered.length + " of " + repositories.length + " repositories";
       }
 
